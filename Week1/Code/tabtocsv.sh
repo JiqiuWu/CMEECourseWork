@@ -1,5 +1,5 @@
 #!/bin/bash
-# Author: Jiqiu JW13818@imperial.ac.uk
+# Author: Jiqiu JW13818@ic.ac.uk
 # Script: tabtocsv.sh
 # Desc: substitude the tabs in the files with commas
 # save the output into a .csv file

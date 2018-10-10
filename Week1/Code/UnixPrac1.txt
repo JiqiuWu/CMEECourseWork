@@ -1,0 +1,5 @@
+wc -l ../Data/*.fasta                                                                           #1
+tail -n +2 ../Data/fasta/E.coli.fasta                                                           #2
+tail -n +2 ../Data/fasta/E.coli | tr -d "\n" | wc -m ../Data/fasta/E.coli                       #3
+tail -n +2 ../Data/fasta/E.coli | tr -d "\n" | grep -o "ATCG" |wc -l                            #4
+tail -n +2 ../Data/fasta/E.coli | tr -d "\n" | grep -o "T\|A" |wc -l / grep -o "C\|G" |wc -l    #5
