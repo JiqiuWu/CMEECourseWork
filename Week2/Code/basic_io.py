@@ -2,33 +2,33 @@
 # FILE INPUT
 ############
 # Open a file for reading
-f = open('../s=Sandbox/test', 'r')
+f = open('../Sandbox/test.txt', 'r') #open the txt file for reading
 # use "implicit" for loop
 # if the object is a file, python will cycle over lines
-for line in f:
-	print(line)
+for line in f: # go through every line of test.txt
+	print(line) # as print is in the for loop, print every line of text file
 
 # close the file
 f.close
 
 # Same example, skip blank lines
-f = open('../Sandbox/test.txt','r')
+f = open('../Sandbox/test.txt','r') #open the txt file for reading
 for line in f:
-	if len(line.strip()) > 0
+	if len(line.strip()) > 0: #check if the line is empty
 	    print (line)
 
-f.close()
+f.close() #close the file
 
 ############
 # FILE OUTPUT
 ############
 # Save the elements of a list to a file
-list_to_save = range(100)
- f = open('../Sandbox/testout.txt','w')
- for i in list_to_save:
- 	f.write(sri(i) + '\n') ## Add a new line at the end
+list_to_save = range(100) #from 0 to 99
+f = open('../Sandbox/testout.txt','w')
+for i in list_to_save:
+    f.write(str(i) + '\n') ## Add a new line at the end
 
- f.close()
+f.close()
 
 ###########
 # STORING OBJECTS
@@ -36,15 +36,15 @@ list_to_save = range(100)
 # To save an object (even complex) for later use
 my_dictionary = {"a key": 10, "another key":11}
 
-import pickle
+import pickle #import the pickle module, a storage and load? module, maybe save storage space and speed up
 
 f = open('../Sandbox/tessp.p','wb')## note the b: accept binaryfiles
-pickle.dump(my_dictionary, f)
+pickle.dump(my_dictionary, f) # save the content of my_dictionary to tessp.p, which can't be read by human and open by editor
 f.close()
 
 ## Load the data again
 f = open('../Sandbox/tessp.p','rb')
-another_dictionary = pickle.load(f)
+another_dictionary = pickle.load(f) #write the the content of my_dictionary in tessp.p into another_dictionary
 f.close
 
 print(another_dictionary)
