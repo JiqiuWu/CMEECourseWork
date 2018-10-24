@@ -9,17 +9,22 @@
 #
 # OUTPUT
 # The heights of the tree, same units as "distance"
+args = commandArgs(trailingOnly = T)
 
-MyTree <- read.table("../data/trees.csv", sep = ",", header = T, stringsAsFactors = F)
+
+MyTree <- read.table(args[1], sep = ",", header = T, stringsAsFactors = F)
 
 TreeHeight <- function(degrees, distance){
-    radians <- degrees * pi / 180
-    height <- distance * tan(radians)
-
-    return(height)
+  radians <- degrees * pi / 180
+  height <- distance * tan(radians)
+  
+  return(height)
 }
 
 
 TreeHeight.m <- TreeHeight(MyTree[,3], MyTree[,2])
+
 MyTree$TreeHeight.m <- TreeHeight.m
-write.csv(MyTree, "../results/TreeHts.csv")
+
+InputFileName <- as.character(args[1])
+write.csv(MyTree, file = args[2], out.txt)

@@ -36,7 +36,7 @@ require(reshape2) # load the reshape2 package
 ?melt #check out the melt function
 
 MyWrangledData <- melt(TempData, id=c("Cultivation", "Block", "Plot", "Quadrat"), 
-variable.name = "Species", value.name = "Count")
+                       variable.name = "Species", value.name = "Count")
 
 MyWrangledData[, "Cultivation"] <- as.factor(MyWrangledData[, "Cultivation"])
 MyWrangledData[, "Block"] <- as.factor(MyWrangledData[, "Block"])
@@ -49,3 +49,4 @@ head(MyWrangledData)
 dim(MyWrangledData)
 
 ############# Start exploring the data (extend the script below)!  ###############
+
