@@ -31,18 +31,14 @@ TempData <- as.data.frame(MyData[-1,],stringsAsFactors = F) #stringsAsFactors = 
 colnames(TempData) <- MyData[1,] # assign column names from original data
 
 ############# Convert from wide to long format  ###############
-require(reshape2) # load the reshape2 package
-
-?melt #check out the melt function
-
-MyWrangledData <- melt(TempData, id=c("Cultivation", "Block", "Plot", "Quadrat"), 
-                       variable.name = "Species", value.name = "Count")
+require(tidyr) #library the tidyr package
+MyWrangledData <- gather(TempData, variable, value, -Cultivation, -Block, -Plot, -Quadrat)
 
 MyWrangledData[, "Cultivation"] <- as.factor(MyWrangledData[, "Cultivation"])
 MyWrangledData[, "Block"] <- as.factor(MyWrangledData[, "Block"])
 MyWrangledData[, "Plot"] <- as.factor(MyWrangledData[, "Plot"])
 MyWrangledData[, "Quadrat"] <- as.factor(MyWrangledData[, "Quadrat"])
-MyWrangledData[, "Count"] <- as.numeric(MyWrangledData[, "Count"])
+
 
 str(MyWrangledData)
 head(MyWrangledData)

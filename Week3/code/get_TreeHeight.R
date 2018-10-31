@@ -9,7 +9,7 @@
 #
 # OUTPUT
 # The heights of the tree, same units as "distance"
-args = commandArgs(trailingOnly = T)
+args = commandArgs(trailingOnly = T) #also can be args = commanArgs(T)
 
 
 MyTree <- read.table(args[1], sep = ",", header = T, stringsAsFactors = F)
@@ -26,5 +26,11 @@ TreeHeight.m <- TreeHeight(MyTree[,3], MyTree[,2])
 
 MyTree$TreeHeight.m <- TreeHeight.m
 
-InputFileName <- as.character(args[1])
-write.csv(MyTree, file = args[2], out.txt)
+filedir = tools::file_path_sans_ext(basename(args[1]))
+
+resultdir = paste0("../results/", filedir, "_treeheight.csv")
+
+write.csv(MyTree, file =resultdir, row.names = F )
+
+
+
