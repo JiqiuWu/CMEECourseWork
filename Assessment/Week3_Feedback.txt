@@ -1,0 +1,1387 @@
+Starting weekly assessment for Jiqiu, Week3
+
+Current Points = 100
+
+Note that: 
+(1) Major sections begin with a double "====" line 
+(2) Subsections begin with a single "====" line 
+(3) Code output or text file content are printed within single "*****" lines 
+
+======================================================================
+======================================================================
+Your Git repo size this week is about 1.50 MiB on disk 
+
+PART 1: Checking project workflow...
+
+Found the following directories in parent directory: Week1, Assessment, Week2, .git, Week3
+
+Found the following files in parent directory: README.txt, .gitignore
+
+Checking for key files in parent directory...
+
+Found .gitignore in parent directory, great! 
+
+Printing contents of .gitignore:
+**********************************************************************
+*~ 
+*.tmp
+**********************************************************************
+
+Found README in parent directory, named: README.txt
+
+Printing contents of README.txt:
+**********************************************************************
+My CMEE 2018-19 CourseWork Repository
+Do I like this better?
+**********************************************************************
+
+======================================================================
+Looking for the weekly directories...
+
+Found 3 weekly directories: Week1, Week2, Week3
+
+The Week3 directory will be assessed 
+
+======================================================================
+======================================================================
+PART 2: Checking weekly code and workflow...
+
+======================================================================
+Assessing WEEK3...
+
+Found the following directories: code, data, results
+
+Found the following files: README.txt
+
+Checking for readme file in weekly directory...
+
+Found README in parent directory, named: README.txt
+
+Printing contents of README.txt:
+**********************************************************************
+Title
+Works in Week3 in 2018-2019 CMEE program 
+
+Getting Started
+Contains Data with test csv files and others, Code with R scripts learned in Week3(really takes time).
+
+Prerequistites
+R and biostatistics
+
+Author
+Jiqiu Wu - j.wu18@imperial.ac.uk
+
+Acknowledgments
+Samraat
+Imperial College London
+Classmates in CMEE and QMEE
+**********************************************************************
+
+Found following files in results directory: TreeHts.csv, PP_Results.csv, PP_Regress.pdf, trees_treeheight.csv, Results_Interpretation.pdf, Pred_Lattice.pdf, Prey_Lattice.pdf, SizeRation_Lattice.pdf...
+ideally, Results directory should be empty other than, perhaps, a readme. 
+
+Found 23 code files: browse.R, Results_Interpretation.tex, PP_Regress.R, apply1.R, sample.R, CompileLaTeX.sh, boilerplate.R, TreeHeight.R, PP_Lattice.R, prellocate.R, next.R, Vectorize1.R, break.R, basic_io.R, try.R, apply2.R, get_TreeHeight.R, TAutoCorr.R, Vectorize2.R, DataWrangTidy.R, mapping.R, DataWrang.R, control.R
+
+Found the following extra files: data_treeheight.csv, trees_treeheight.csv, .Rhistory
+0.5 pt deducted per extra file
+
+Current Points = 98.5
+
+======================================================================
+Testing script/code files...
+
+======================================================================
+Inspecting script file browse.R...
+
+File contents are:
+**********************************************************************
+Exponential <- function(N0 = 1, r = 1, generations = 10){
+  # Runs a simulation of exponential growth
+  # Returns a vector of length generations
+  
+  N <- rep(NA, generations)    # Creates a vector of NA
+  
+  N[1] <- N0
+  for (t in 2:generations){
+    N[t] <- N[t-1] * exp(r)
+    browser()
+  }
+  return (N)
+}
+
+plot(Exponential(), type="l", main="Exponential growth")**********************************************************************
+
+Testing browse.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+Called from: Exponential()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+debug: N[t] <- N[t - 1] * exp(r)
+debug: browser()
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.10608s
+
+======================================================================
+Inspecting script file Results_Interpretation.tex...
+
+File contents are:
+**********************************************************************
+\documentclass[12pt]{article}
+\title{A Short Answer}
+\author{Jiqiu}
+\date{}
+\usepackage{listings}
+\usepackage{xcolor}
+\begin{document}
+  \maketitle
+
+  \begin{abstract}
+    Results and their interpretation about the correlation coefficients and p-value of the temperatures.
+  \end{abstract}
+
+  \section{Methods}
+  To calculate the correlation coefficient between successive years, the data were input and two subsets were generated, x_1 and y_1, they contained the first temperature to the 99th temperature, respectively. Then, correlation coefficient was counted.The data were KeyWestAnnualMeanTemperature.RData, and located in "~/Documents/CMEECrouseWork/Week3/data". 
+  
+  As for calculating the correlation coefficient for each randomly permuted year sequence, temperatures were generated randomly.
+
+  P-value was calculated.
+
+  \section{Results}
+  Coefficient between successive years, cor_1 is 0.3261697. Correlation coefficient for each randomly permuted year sequence cor_2 is 0.004013868. p-value cor_2/cor_1 is 0.01230607.
+
+  \section{Interpretation}
+  The p-value is less than 0.05, so it is statistically significant association.
+  
+  \section{Discussion}
+  Actually, I still don't figure out why that is p-value, huh.
+  
+
+
+\begin{colorboxed}
+\begin{lstlisting}
+
+MyData <- load("../data/KeyWestAnnualMeanTemperature.RData")
+MyData_1 <- ats[,]
+Year <- MyData_1[[1]]
+Tempera <- MyData_1[[2]]
+x_1 <- Tempera[1:99]
+y_1 <- Tempera[2:100]
+cor_1 <- cor(x_1, y_1)
+
+MyData_2 <- sample(Tempera, size = 10000, replace = T)
+x_2 <- MyData_2[1:9999]
+y_2 <- MyData_2[2:10000]
+
+cor_2 <- cor(x_2, y_2)
+
+print(cor_1)
+print(cor_2)
+print(cor_2/cor_1)
+\end{lstlisting}
+\end{colorboxed}
+\end{document}
+\grid
+**********************************************************************
+
+Testing Results_Interpretation.tex...
+
+======================================================================
+Inspecting script file PP_Regress.R...
+
+File contents are:
+**********************************************************************
+pdf("../results/PP_Regress.pdf")
+
+MyData <- read.csv("../data/EcolArchives-E089-51-D1.csv", header = T, stringsAsFactors = F)
+
+library(ggplot2)
+
+p <- ggplot(MyData, aes(x = Prey.mass, y = Predator.mass, col = MyData$Predator.lifestage)) + geom_point(shape = I(3)) + facet_grid(Type.of.feeding.interaction ~ .) 
+p <- p + xlab("Prey Mass in grams") + ylab("Predator Mass in grams")
+p <- p + stat_smooth(method = lm, fullrange = TRUE, se = T) + scale_y_continuous(trans = "log10") + scale_x_continuous(trans = "log10")
+p <- p + theme_bw()  + theme(legend.position = "bottom") + guides(color = guide_legend(nrow=1))
+
+graphics.off()
+
+
+
+**********************************************************************
+
+Testing PP_Regress.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.82417s
+
+======================================================================
+Inspecting script file apply1.R...
+
+File contents are:
+**********************************************************************
+## apply: applying the same function to rows/columns of a matrix
+
+## Build a random matrix
+M <- matrix(rnorm(100),10,10)
+
+## Take the mean of each row
+RowMeans <- apply(M,1,mean)
+print(RowMeans)
+
+## Now the variance
+RowVars <- apply(M,1,var)
+print(RowVars)
+
+## By column
+ColMeans <- apply(M,2,mean)
+print(ColMeans)
+**********************************************************************
+
+Testing apply1.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+ [1]  0.22206642  0.27231123  0.06437527 -0.17510555 -0.13407312 -0.00441234
+ [7]  0.04776821  0.11057233  0.62733633  0.57514725
+ [1] 0.7547926 0.9791909 0.2979919 0.5593265 1.0363365 0.8738429 0.4953971
+ [8] 1.1167934 1.0983707 1.3538643
+ [1]  0.01520011  0.25417629  0.20978368  0.04263952  0.28034886  0.51867684
+ [7]  0.08908361  0.30169448 -0.08752125 -0.01809610
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.06491s
+
+======================================================================
+Inspecting script file sample.R...
+
+File contents are:
+**********************************************************************
+## run a simulation that involves sampling from a population with try
+
+x <- rnorm(50) #Generate your population
+doit <- function(x){
+  x <- sample(x, replace = TRUE)
+  if(length(unique(x)) > 30) {#only take mean if sample was sufficient
+    print(paste("Mean of this sample was:", as.character(mean(x))))
+  } 
+  else {
+    stop("Couldn't calculate mean: too few unique points!")
+  }
+}
+**********************************************************************
+
+Testing sample.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.06584s
+
+======================================================================
+Inspecting script file CompileLaTeX.sh...
+
+File contents are:
+**********************************************************************
+#!/bin/bash
+pdflatex $1.tex
+pdflatex $1.tex
+bibtex $1
+pdflatex $1.tex
+pdflatex $1.tex
+evince $1.pdf &
+
+## Cleanup
+rm *~
+rm *.aux
+rm *.dvi
+rm *.log
+rm *.nav
+rm *.out
+rm *.snm
+rm *.toc**********************************************************************
+
+Testing CompileLaTeX.sh...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(/usr/share/texlive/texmf-dist/tex/latex/tools/.tex
+LaTeX2e <2016/02/01>
+Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
+File ignored)
+*
+! Emergency stop.
+<*> .tex
+        
+!  ==> Fatal error occurred, no output PDF file produced!
+Transcript written on .log.
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (pre
+**********************************************************************
+
+Encountered error:
+bibtex: Need exactly one file argument.
+Try `bibtex --help' for more information.
+rm: cannot remove '*~': No such file or directory
+rm: cannot remove '*.aux': No such file or directory
+rm: cannot remove '*.dvi': No such file or directory
+rm: cannot remove '*.log': No such file or directory
+rm: cannot remove '*.nav': No such file or directory
+rm: cannot remove '*.out': No such file or directory
+rm: cannot remove '*.snm': No such file or directory
+rm: cannot remove '*.toc': No such file or directory
+
+** (evince:10703): WARNING **: Error when getting information for file '/home/mhasoba/Documents/Teaching/IC_CMEE/2018-19/Coursework/StudentRepos/JiqiuWu_JW13818/Week3/code/.pdf': No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+** (evince:10703): WARNING **: Error setting file metadata: No such file or directory
+
+======================================================================
+Inspecting script file boilerplate.R...
+
+File contents are:
+**********************************************************************
+# A boilerplate R script
+
+MyFunction <- function(Arg1, Arg2){
+
+    # Statesments involing Arg1, Arg2
+    print(paste("Argument", as.character(Arg1),"is a", class(Arg1))) #print Arg1's type
+    print(paste("Argument", as.character(Arg2),"is a", class(Arg2))) #print Arg2's type
+
+    return (c(Arg1,Arg2)) #This is optional, but very useful
+}
+
+MyFunction(1,2) #test the function
+MyFunction("Riki", "Tiki") #A different test
+**********************************************************************
+
+Testing boilerplate.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+[1] "Argument 1 is a numeric"
+[1] "Argument 2 is a numeric"
+[1] 1 2
+[1] "Argument Riki is a character"
+[1] "Argument Tiki is a character"
+[1] "Riki" "Tiki"
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.14332s
+
+======================================================================
+Inspecting script file TreeHeight.R...
+
+File contents are:
+**********************************************************************
+# This function calculates heights of trees given distances of each
+# from its base and angle to its top, using the trigonometric for
+#
+# height = distance * tan(radians)
+#
+# AGRUMENTS
+# degrees: The angle of elevation of tree
+# distance: The distance from base of tree(e.g. meters)
+#
+# OUTPUT
+# The heights of the tree, same units as "distance"
+
+MyTree <- read.table("../data/trees.csv", sep = ",", header = T, stringsAsFactors = F) #read information, and aviod R seting objects into factor
+
+TreeHeight <- function(degrees, distance){  #define the function, and degrees and distance are arguments
+    radians <- degrees * pi / 180
+    height <- distance * tan(radians) 
+
+    return(height) #calculation of height
+}
+
+
+TreeHeight.m <- TreeHeight(MyTree[,3], MyTree[,2])
+MyTree$TreeHeight.m <- TreeHeight.m #add the heights calculated into a row of the previous csv file
+write.csv(MyTree, "../results/TreeHts.csv", row.names = F) #output the csv file with heights of trees, and avoid R setting numbers into the first column,NICE!
+**********************************************************************
+
+Testing TreeHeight.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.09994s
+
+======================================================================
+Inspecting script file PP_Lattice.R...
+
+File contents are:
+**********************************************************************
+MyData <- read.csv("../data/EcolArchives-E089-51-D1.csv", header = T, stringsAsFactors = F)
+
+library(lattice)
+library(plyr)
+
+pdf("../results/Pred_Lattice.pdf")
+densityplot(~log(Predator.mass) | Type.of.feeding.interaction, data=MyData)
+graphics.off()
+
+pdf("../results/Prey_Lattice.pdf")
+densityplot(~log(Prey.mass) | Type.of.feeding.interaction, data=MyData)
+graphics.off()
+
+pdf("../results/SizeRation_Lattice.pdf")
+densityplot(~log(Prey.mass)/log(Predator.mass) | Type.of.feeding.interaction, data=MyData)
+graphics.off()
+
+PPResults <- ddply(MyData, ~ Type.of.feeding.interaction, summarize, 
+                   MeanMassPred = mean(log(Predator.mass)), 
+                   MedianMassPred = median(log(Predator.mass)), 
+                   MeanMassPrey = mean(log(Prey.mass)), 
+                   MedianMassPrey = median(log(Prey.mass)),
+                   MeanRatio = mean(log(Predator.mass/Prey.mass)), 
+                   MedianRatio = median(log(Predator.mass/Prey.mass)))
+
+
+write.csv(PPResults, file = "../results/PP_Results.csv", row.names = F)
+
+
+
+**********************************************************************
+
+Testing PP_Lattice.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 3.32404s
+
+======================================================================
+Inspecting script file prellocate.R...
+
+File contents are:
+**********************************************************************
+a <- rep(NA, 1000000)
+
+for (i in 1:1000000) {
+    a[i] <- i
+}
+print(a)
+print(system.time(print(a)))
+**********************************************************************
+
+Testing prellocate.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+    [1]     1     2     3     4     5     6     7     8     9    10    11    12
+   [13]    13    14    15    16    17    18    19    20    21    22    23    24
+   [25]    25    26    27    28    29    30    31    32    33    34    35    36
+   [37]    37    38    39    40    41    42    43    44    45    46    47    48
+   [49]    49    50    51    52    53    54    55    56    57    58    59    60
+   [61]    61    62    63    64    65    66    67    68    69    70    71    72
+   [73]    73    74  
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.46058s
+
+======================================================================
+Inspecting script file next.R...
+
+File contents are:
+**********************************************************************
+for (i in 1:10) {
+  if ((i %% 2) == 0) 
+    next # pass to next iteration of loop 
+  print(i)
+}
+**********************************************************************
+
+Testing next.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+[1] 1
+[1] 3
+[1] 5
+[1] 7
+[1] 9
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.08948s
+
+======================================================================
+Inspecting script file Vectorize1.R...
+
+File contents are:
+**********************************************************************
+M <- matrix(runif(1000000),1000,1000)
+
+SumAllElements <- function(M){
+  Dimensions <- dim(M)
+  Tot <- 0
+  for (i in 1:Dimensions[1]){
+    for (j in 1:Dimensions[2]){
+      Tot <- Tot + M[i,j]
+    }
+  }
+  return (Tot)
+}
+
+## This on my computer takes about 1 sec
+print(system.time(SumAllElements(M)))
+## While this takes about 0.01 sec
+print(system.time(sum(M)))
+**********************************************************************
+
+Testing Vectorize1.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+   user  system elapsed 
+  0.076   0.004   0.080 
+   user  system elapsed 
+  0.000   0.000   0.001 
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.21618s
+
+======================================================================
+Inspecting script file break.R...
+
+File contents are:
+**********************************************************************
+i <- 0 #Initialize i
+    while(i < Inf) {
+        if (i == 20) {
+            break 
+             } # Break out of the while loop! 
+        else { 
+            cat("i equals " , i , " \n")
+            i <- i + 1 # Update i
+    }
+}
+**********************************************************************
+
+Testing break.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+i equals  0  
+i equals  1  
+i equals  2  
+i equals  3  
+i equals  4  
+i equals  5  
+i equals  6  
+i equals  7  
+i equals  8  
+i equals  9  
+i equals  10  
+i equals  11  
+i equals  12  
+i equals  13  
+i equals  14  
+i equals  15  
+i equals  16  
+i equals  17  
+i equals  18  
+i equals  19  
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.08962s
+
+======================================================================
+Inspecting script file basic_io.R...
+
+File contents are:
+**********************************************************************
+# A simple script to illustrate R input-output.
+# Run line by line and check inputs outputs to understand what is happening
+
+MyData <- read.csv("../data/trees/csv", header = TRUE) # import with headers 
+
+write.csv(MyData, "../results/MyData.csv") #write it out as a new file
+
+write.table(MyData[1,], file = "../results/MyData.csv",append=TRUE) # Append to it
+
+write.csv(MyData, "../results/MyData.csv", row.names=TRUE) # write row names
+
+write.table(MyData, "../results/MyData.csv", col.names=FALSE) # ignore column names**********************************************************************
+
+Testing basic_io.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Encountered error:
+Error in file(file, "rt") : cannot open the connection
+Calls: read.csv -> read.table -> file
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file '../data/trees/csv': No such file or directory
+Execution halted
+
+======================================================================
+Inspecting script file try.R...
+
+File contents are:
+**********************************************************************
+## Try using "try" with vectorization:
+result <- lapply(1:100, function(i) try(doit(x), FALSE))
+
+## Or using a for loop:
+result <- vector("list", 100) #Preallocate/Initialize
+for(i in 1:100) {
+  result[[i]] <- try(doit(x), FALSE)
+}**********************************************************************
+
+Testing try.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Encountered error:
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+Error in doit(x) : could not find function "doit"
+
+======================================================================
+Inspecting script file apply2.R...
+
+File contents are:
+**********************************************************************
+SomeOperation <- function(v){#(What does this function do?)
+  if(sum(v)>0){
+      return(v * 100)
+    
+  }
+  return(v)
+}
+
+M <- matrix(rnorm(100),10,10)
+print (apply(M,1,SomeOperation))
+**********************************************************************
+
+Testing apply2.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+           [,1]       [,2]       [,3]       [,4]       [,5]       [,6]
+ [1,]  70.10030  88.200703  0.4221283   81.78335  1.6597054 -0.5153033
+ [2,] -17.69252  94.624473 -0.7564520   61.95886 -1.5724590  0.6522947
+ [3,]  85.39337  -4.004763 -1.2615802  110.94572  0.5949772  0.4106734
+ [4,]  43.39284  45.450138 -0.2542969 -236.43970 -0.5796011 -0.8314381
+ [5,]  39.83933  13.233073  1.2642839  -29.90180 -0.8548226 -0.6441163
+ [6,] -15.02589 -71.664495 -2.3554007   71.95671  0.4361235 -1.1385357
+ [7,
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.08953s
+
+======================================================================
+Inspecting script file get_TreeHeight.R...
+
+File contents are:
+**********************************************************************
+# This function calculates heights of trees given distances of each
+# from its base and angle to its top, using the trigonometric for
+#
+# height = distance * tan(radians)
+#
+# AGRUMENTS
+# degrees: The angle of elevation of tree
+# distance: The distance from base of tree(e.g. meters)
+#
+# OUTPUT
+# The heights of the tree, same units as "distance"
+args = commandArgs(trailingOnly = T) #also can be args = commanArgs(T)
+
+
+MyTree <- read.table(args[1], sep = ",", header = T, stringsAsFactors = F)
+
+TreeHeight <- function(degrees, distance){
+  radians <- degrees * pi / 180
+  height <- distance * tan(radians)
+  
+  return(height)
+}
+
+
+TreeHeight.m <- TreeHeight(MyTree[,3], MyTree[,2])
+
+MyTree$TreeHeight.m <- TreeHeight.m
+
+filedir = tools::file_path_sans_ext(basename(args[1]))
+
+resultdir = paste0("../results/", filedir, "_treeheight.csv")
+
+write.csv(MyTree, file =resultdir, row.names = F )
+
+
+
+**********************************************************************
+
+Testing get_TreeHeight.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Encountered error:
+Error in file(file, "rt") : cannot open the connection
+Calls: read.table -> file
+In addition: Warning message:
+In file(file, "rt") : cannot open file 'NA': No such file or directory
+Execution halted
+
+======================================================================
+Inspecting script file TAutoCorr.R...
+
+File contents are:
+**********************************************************************
+MyData <- load("../data/KeyWestAnnualMeanTemperature.RData")
+MyData_1 <- ats[,]
+Year <- MyData_1[[1]]
+Tempera <- MyData_1[[2]]
+x_1 <- Tempera[1:99]
+y_1 <- Tempera[2:100]
+cor_1 <- cor(x_1, y_1)
+
+MyData_2 <- sample(Tempera, size = 10000, replace = T)
+x_2 <- MyData_2[1:9999]
+y_2 <- MyData_2[2:10000]
+
+cor_2 <- cor(x_2, y_2)
+
+#print(cor_1)
+#print(cor_2)
+#print(cor_2/cor_1)
+
+
+**********************************************************************
+
+Testing TAutoCorr.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.07857s
+
+======================================================================
+Inspecting script file Vectorize2.R...
+
+File contents are:
+**********************************************************************
+# Runs the stochastic (with gaussian fluctuations) Ricker Eqn .
+
+rm(list=ls())
+
+stochrick<-function(p0=runif(1000,.5,1.5),r=1.2,K=1,sigma=0.2,numyears=100) #runif is a function that creat random samples, where stochtick enters
+{
+  #initialize
+  N<-matrix(NA,numyears,length(p0))
+  N[1,]<-p0
+  pop <- rep(NA, length(p0))
+  yr <- rep(NA, numyears-1)
+  
+  for (pop in 1:length(p0)) #loop through the populations
+  {
+    for (yr in 2:numyears) #for each pop, loop through the years
+    {
+      N[yr,pop]<-N[yr-1,pop]*exp(r*(1-N[yr-1,pop]/K)+rnorm(1,0,sigma))
+    }
+  }
+  return(N)
+  
+}
+
+# Now write another function called stochrickvect that vectorizes the above 
+# to the extent possible, with improved performance: 
+
+print("Vectorized Stochastic Ricker takes:")
+print(system.time(res2<-stochrick()))
+
+**********************************************************************
+
+Testing Vectorize2.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+[1] "Vectorized Stochastic Ricker takes:"
+   user  system elapsed 
+  0.244   0.000   0.244 
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.31367s
+
+======================================================================
+Inspecting script file DataWrangTidy.R...
+
+File contents are:
+**********************************************************************
+################################################################
+################## Wrangling the Pound Hill Dataset ############
+################################################################
+
+############# Load the dataset ###############
+# header = false because the raw data don't have real headers
+MyData <- as.matrix(read.csv("../data/PoundHillData.csv",header = F)) 
+
+# header = true because we do have metadata headers
+MyMetaData <- read.csv("../data/PoundHillMetaData.csv",header = T, sep=";", stringsAsFactors = F)
+
+############# Inspect the dataset ###############
+head(MyData)
+dim(MyData)
+str(MyData)
+fix(MyData) #you can also do this
+fix(MyMetaData)
+
+############# Transpose ###############
+# To get those species into columns and treatments into rows 
+MyData <- t(MyData) 
+head(MyData)
+dim(MyData)
+
+############# Replace species absences with zeros ###############
+MyData[MyData == ""] = 0
+
+############# Convert raw matrix to data frame ###############
+
+TempData <- as.data.frame(MyData[-1,],stringsAsFactors = F) #stringsAsFactors = F is important!
+colnames(TempData) <- MyData[1,] # assign column names from original data
+
+############# Convert from wide to long format  ###############
+require(tidyr) #library the tidyr package
+MyWrangledData <- gather(TempData, variable, value, -Cultivation, -Block, -Plot, -Quadrat)
+
+MyWrangledData[, "Cultivation"] <- as.factor(MyWrangledData[, "Cultivation"])
+MyWrangledData[, "Block"] <- as.factor(MyWrangledData[, "Block"])
+MyWrangledData[, "Plot"] <- as.factor(MyWrangledData[, "Plot"])
+MyWrangledData[, "Quadrat"] <- as.factor(MyWrangledData[, "Quadrat"])
+
+
+str(MyWrangledData)
+head(MyWrangledData)
+dim(MyWrangledData)
+
+############# Start exploring the data (extend the script below)!  ###############
+
+**********************************************************************
+
+Testing DataWrangTidy.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+     V1                     V2        V3        V4        V5        V6       
+[1,] "Cultivation"          "october" "october" "october" "october" "october"
+[2,] "Block"                "a"       "a"       "a"       "a"       "a"      
+[3,] "Plot"                 "1"       "1"       "1"       "1"       "1"      
+[4,] "Quadrat"              "Q1"      "Q2"      "Q3"      "Q4"      "Q5"     
+[5,] "Achillea millefolium" "4"       "8"       "3"       "20"      "6"      
+[6,] "Agrostis gigantea"    ""   
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 10.00430s
+
+======================================================================
+Inspecting script file mapping.R...
+
+File contents are:
+**********************************************************************
+library(ggplot2)
+library(maps)
+
+MyData <- load("../data/GPDDFiltered.RData")
+MyData_1 <- gpdd[,]
+
+map(database = "world")
+
+points(x = MyData_1$long, y = MyData_1$lat, pch = 21, bg = gpdd$common.name)
+
+#Answer: I am nor familar with map data, let me think....**********************************************************************
+
+Testing mapping.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.47572s
+
+======================================================================
+Inspecting script file DataWrang.R...
+
+File contents are:
+**********************************************************************
+################################################################
+################## Wrangling the Pound Hill Dataset ############
+################################################################
+
+############# Load the dataset ###############
+# header = false because the raw data don't have real headers
+MyData <- as.matrix(read.csv("../data/PoundHillData.csv",header = F)) 
+
+# header = true because we do have metadata headers
+MyMetaData <- read.csv("../data/PoundHillMetaData.csv",header = T, sep=";", stringsAsFactors = F)
+
+############# Inspect the dataset ###############
+head(MyData)
+dim(MyData)
+str(MyData)
+fix(MyData) #you can also do this
+fix(MyMetaData)
+
+############# Transpose ###############
+# To get those species into columns and treatments into rows 
+MyData <- t(MyData) 
+head(MyData)
+dim(MyData)
+
+############# Replace species absences with zeros ###############
+MyData[MyData == ""] = 0
+
+############# Convert raw matrix to data frame ###############
+
+TempData <- as.data.frame(MyData[-1,],stringsAsFactors = F) #stringsAsFactors = F is important!
+colnames(TempData) <- MyData[1,] # assign column names from original data
+
+############# Convert from wide to long format  ###############
+require(reshape2) # load the reshape2 package
+
+?melt #check out the melt function
+
+MyWrangledData <- melt(TempData, id=c("Cultivation", "Block", "Plot", "Quadrat"), 
+variable.name = "Species", value.name = "Count")
+
+MyWrangledData[, "Cultivation"] <- as.factor(MyWrangledData[, "Cultivation"])
+MyWrangledData[, "Block"] <- as.factor(MyWrangledData[, "Block"])
+MyWrangledData[, "Plot"] <- as.factor(MyWrangledData[, "Plot"])
+MyWrangledData[, "Quadrat"] <- as.factor(MyWrangledData[, "Quadrat"])
+MyWrangledData[, "Count"] <- as.numeric(MyWrangledData[, "Count"])
+
+str(MyWrangledData)
+head(MyWrangledData)
+dim(MyWrangledData)
+
+############# Start exploring the data (extend the script below)!  ###############
+**********************************************************************
+
+Testing DataWrang.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+     V1                     V2        V3        V4        V5        V6       
+[1,] "Cultivation"          "october" "october" "october" "october" "october"
+[2,] "Block"                "a"       "a"       "a"       "a"       "a"      
+[3,] "Plot"                 "1"       "1"       "1"       "1"       "1"      
+[4,] "Quadrat"              "Q1"      "Q2"      "Q3"      "Q4"      "Q5"     
+[5,] "Achillea millefolium" "4"       "8"       "3"       "20"      "6"      
+[6,] "Agrostis gigantea"    ""   
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 10.00711s
+
+======================================================================
+Inspecting script file control.R...
+
+File contents are:
+**********************************************************************
+## Some code exemplifying control flow constructs in R
+
+## If statement
+a <- TRUE
+if (a == TRUE){
+    print("a is TURE")
+    } else {
+    print ("a is FALSE")
+}
+
+## On a single line
+z <- runif(1) ##ramdom number
+if (z <= 0.5){
+    print("Less than a quarter")
+}
+
+## For loop using a sequence
+for (i in 1:100){
+    j <- i * i
+    print(paste(i, " squared is", j ))
+}
+
+## For loop over vector of strings
+for(species in c('Heliodoxa rubinoides',
+                 'Boissonneaua jardini',
+                 'Sula nebouxii'))
+{
+  print(paste('The species is', species))
+}
+
+## for loop using a vector
+v1 <- c("a","b","def")
+for (i in v1){
+    print(i)
+}
+
+## While loop
+i <- 0
+while (i<100){
+    i < i+1
+    print(i^2)
+}**********************************************************************
+
+Testing control.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+[1] "a is TURE"
+[1] "1  squared is 1"
+[1] "2  squared is 4"
+[1] "3  squared is 9"
+[1] "4  squared is 16"
+[1] "5  squared is 25"
+[1] "6  squared is 36"
+[1] "7  squared is 49"
+[1] "8  squared is 64"
+[1] "9  squared is 81"
+[1] "10  squared is 100"
+[1] "11  squared is 121"
+[1] "12  squared is 144"
+[1] "13  squared is 169"
+[1] "14  squared is 196"
+[1] "15  squared is 225"
+[1] "16  squared is 256"
+[1] "17  squared is 289"
+[1] "18  squared is 324"
+[1] "19  squared is 361"
+[1] "20  squared is 400"
+[1] "2
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 10.05009s
+
+======================================================================
+======================================================================
+Finished running scripts
+
+Ran into 4 errors
+
+======================================================================
+======================================================================
+
+FINISHED WEEKLY ASSESSMENT
+
+Current Points for the Week = 98.5
+
+NOTE THAT THESE ARE POINTS, NOT MARKS FOR THE WEEK!
