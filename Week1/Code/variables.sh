@@ -1,6 +1,12 @@
 #!/bin/bash
+# Author: Jiqiu j.wu18@imperial.ac.uk
+# Script: variables.sh
+# Desc: show us how to use variables by $
+# Arguments: none
+# Date: Oct 2018
+
 # Shows the use of variables
-MyVar='some string'
+MyVar='some string' #write the value into the variable MyVar
 echo 'the current value of the variable is' $MyVar
 echo 'Please enter a new string'
 read MyVar

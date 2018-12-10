@@ -1,0 +1,19 @@
+#!/bin/bash
+# Author: Jiqiu j.wu18@imperial.ac.uk
+# Script: Vectorize_Compare.sh
+# Desc: compare the four scripts
+# Arguments: none
+# Date: Dec 2018
+
+
+echo -e "\n Computing time for Vectorize1.R \n"
+Rscript Vectorize1.R
+echo -e "-------------------------------------"
+echo -e "\n Computing time for Vectorize1.py \n"
+python3 Vectorize1.py
+echo -e "-------------------------------------"
+echo -e "\n Computing time for Vectorize2.R \n"
+Rscript Vectorize2.R
+echo -e "-------------------------------------"
+echo -e "\n Computing time for Vectorize2.py \n"
+python3 Vectorize2.py

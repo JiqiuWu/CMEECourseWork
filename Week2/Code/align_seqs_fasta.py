@@ -5,10 +5,16 @@
 __author__ = 'Jiqiu Wu (j.wu18@imperial.ac.uk)'
 __version__ = '0.0.1'
 
+import sys
+
 lines1 = ""
 lines2 = "" #generate two empty sequences
-f1 = open("../Data/seq1.fasta","r")
-f2 = open("../Data/seq2.fasta","r")
+f1 = open(sys.argv[1],"r")
+f2 = open(sys.argv[2],"r")
+
+if len(list(sys.argv)) == 0:
+    f1 = ATCGCCGGATTACGGG
+    f2 = CAATTCGGAT
 
 next(f1) #ignore the first line
 for line in f1.readlines():
@@ -71,6 +77,6 @@ for i in range(l1): # Note that you just take the last alignment with the highes
         my_best_align = "." * i + s2 # think about what this is doing!
         my_best_score = z 
 
-aligned_seqs = open("../Result/aligned_seqs.txt","w")
-aligned_seqs.write(my_best_align + "\n" + s1 + "\n"+"Best_score: "+str(my_best_score))
-aligned_seqs.close()
+print(my_best_align)
+print(s1)
+print("Best score:", my_best_score)

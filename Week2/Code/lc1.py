@@ -16,9 +16,9 @@ birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
 # lists containing the latin names, common names and mean body masses for
 # each species in birds, respectively. 
 
-latin_names = [latin_names[0] for latin_names in birds ]
-common_names = [common_names[1] for common_names in birds]
-mean_body_masses = [mean_body_masses[2] for mean_body_masses in birds]
+latin_names = [raw[0] for raw in birds ]
+common_names = [raw[1] for raw in birds]
+mean_body_masses = [raw[2] for raw in birds]
 print(latin_names)
 print(common_names)
 print(mean_body_masses)
@@ -28,7 +28,7 @@ print(mean_body_masses)
 # before 1 !). 
 latin_names = []
 common_names = []
-mean_body_masses = []    # creat empty lists
+mean_body_masses = []    # creat empty lists waiting for adding
 
 for bird in birds:
     latin_names.append(bird[0])
