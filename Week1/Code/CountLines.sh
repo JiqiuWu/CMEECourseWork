@@ -5,6 +5,11 @@
 # Arguments: the input file
 # Date: Oct 2018
 
-NumberLine=`wc -l < $1` #count the lines of the input file 
+NumberLine=`wc -l < $1` 
+#this command can be altertived by 
+#NumberLine=`wc -l $1`
+#count the lines of the input file and give the value to the variable Numberline
 echo "The file $1 has $NumberLine lines"
-echo                    #print the results on the screen
+#print the results on the screen
+echo   
+                 

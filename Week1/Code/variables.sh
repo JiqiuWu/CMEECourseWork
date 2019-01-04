@@ -3,7 +3,7 @@
 # Script: variables.sh
 # Desc: show us how to use variables by $
 # Arguments: none
-# Date: Oct 2018
+# Date: Oct 2018, improved in Jan 2019
 
 # Shows the use of variables
 MyVar='some string' #write the value into the variable MyVar
@@ -11,8 +11,15 @@ echo 'the current value of the variable is' $MyVar
 echo 'Please enter a new string'
 read MyVar
 echo 'the current value of variable is' $MyVar
+
 ## Reading multiple values
 echo 'enter two numbers separated by space(s)'
 read a b
 echo 'you entered' $a 'and' $b '. Their sum is'
+
 mysum=`expr $a + $b`
+#This command can be altertived by 
+#mysum=$(expr $a + $b)
+
+echo $mysum
+

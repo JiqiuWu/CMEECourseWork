@@ -1,5 +1,5 @@
 wc -l ../Data/*.fasta                                                                           #1
-tail -n +2 ../Data/fasta/E.coli.fasta                                                           #2
-tail -n +2 ../Data/fasta/E.coli | tr -d "\n" | wc -m ../Data/fasta/E.coli                       #3
-tail -n +2 ../Data/fasta/E.coli | tr -d "\n" | grep -o "ATCG" |wc -l                            #4
-tail -n +2 ../Data/fasta/E.coli | tr -d "\n" | grep -o "T\|A" |wc -l / grep -o "C\|G" |wc -l    #5
+tail -n +2 ../Data/fasta/E.coli.fasta                                                           #2 tail-n:output the last NUM lines, instead of the last  10;  or  use  +NUM to output starting with line NUM
+tail -n +2 ../Data/fasta/E.coli.fasta | tr -d "\n" | wc -m ../Data/fasta/E.coli                 #3 tr -d: delete characters in SET1, do not translate;wc -m: print the character counts
+tail -n +2 ../Data/fasta/E.coli.fasta | tr -d "\n" | grep -o "ATCG" |wc -l                      #4
+echo "scale= 2;$[$(tail -n +2 ../Data/fasta/E.coli.fasta | tr -d "\n" | grep -o "T\|A" |wc -l) / $(tail -n +2 ../Data/fasta/E.coli.fasta | tr -d "\n" | grep -o "C\|G" |wc -l)]"  |bc  #5

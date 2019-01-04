@@ -34,7 +34,7 @@ neutral_step <- function(community){
 
 neutral_generation <- function(community){
   times = round(length(community)/2)
-  for (i in times){
+  for (i in 1:times){
     community = neutral_step(community)}
     return(community)
 }
@@ -54,15 +54,13 @@ plot(x=1:201, y = neutral_time_series(initialise_max(100), 200), type = "p", xla
 
 #8
 
-neutral_step_speciation <- function(community){
-  new_community = initialise_max(length(community)) + 1
-  community[1]=new_community[-1]
+neutral_step_speciation <- function(community, v){
+  x <- runif(1, min = 0, max =1)
+if (x < v){
+  middle_community = community + 1
+  dead = sample(community, size = 1, replace = F)
+  community[dead] = middle_community[length(middle_community)]
   return(community)
-
-  
-x <- runif(min = 0, max =1)
-if (x <0.2){
-  community = neutral_step_speciation(community)
 } else{
   community = neutral_step(community)
 
@@ -74,25 +72,26 @@ if (x <0.2){
 neutral_generation_speciation <- function(community,v){
   times = round(length(community)/2)
   for (i in 1:times){
-    community = neutral_step_specitation(community)
-  return(community)}
+    community = neutral_step_speciation(community,v)}
+  return(community)
 }
 #10
 
 neutral_time_series_speciation <- function(community,v,duration){
-  community = initialise_max(initial)
-  times = duration
-  for (i in times)
-    community = neutral_generation_speciation(community,v)
-  richness =  length(unique(community))
+  richness =  c(species_richness(community))
+  for (i in 1:duration){
+  community = neutral_generation_speciation(community,v)
+  richness = c(richness, species_richness(community))
+  }
   return(richness)
 }
 #11
-
-question_12 <- function(){
-  
-  
+question12 <- function(community,v,duration){
+p <- plot(x=1:201, y = neutral_time_series_speciation(initialise_max(100), 0.1, 200), type = "l", xlab = "generations" ,ylim =  range(1,100), col = "blue", ylab = "speices_richness", main = "The exact plot of question12, happy!")
+par(new = T)
+p <- plot(x=1:201, y = neutral_time_series_speciation(initialise_min(100), 0.1, 200), type = "l", ylim =range(1,100), col = "green")
 }
+
 #12
 
 species_abundance <-function(community){
@@ -107,25 +106,50 @@ result <- tabulate(as.integer(floor(log2(community))) + 1)
 return(result)
 }
 #14
-
+sum_vect <- function(x,y){
 if (length(x) > length(y)){
   a = x
   x = y
   y = a
 }
-sum_vect <- function(x,y){
-  if(length(x) != length(y)){
+
+if(length(x) != length(y)){
     gap = length(y)-length(x)
-    for (i in gap){
+    for (i in 1:gap){
     x = append(x,0)}
-    result = sum(x+y)
+    result = x + y
   } else {
-  result = sum(x+y)
+  result = x + y
   }
 }
 #15
 
 
+
+question16 <- function(){
+  n <- octaves(neutral_time_series_speciation(initialise_max(100), 0.1, 200))
+  p <- octaves(neutral_time_series_speciation(initialise_min(100), 0.1, 200))
+  q <- neutral_time_series_speciation(initialise_max(100), 0.1, 2000)
+  r <- neutral_time_series_speciation(initialise_min(100), 0.1, 2000) 
+
+lst <- list()
+for (i in 1:2000){
+  
+if (i %% 20 == 0){
+  lst[[i]] = octaves(neutral_time_series_speciation(initialise_max(100),0.1,i))
+ i = i + 1
+}
+  all_octaves = lst[-which(sapply(lst,is.null))] 
+  
+  summa = all_octaves[[1]]
+  for (i in 2:100){
+    summa = sum_vect(summa, all_octaves[[i]])
+    average = summa/100
+    barplot(average)
+ # return(lst)
+} 
+}
+} 
 
 
 

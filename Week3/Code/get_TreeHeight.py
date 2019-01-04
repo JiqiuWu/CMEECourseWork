@@ -24,11 +24,13 @@ with open('sys.argv[1]') as file_object:
     MyTree = file_object.read()
 
 def TreeHeight(degrees,distance):
-"""define a function that can calculate the height of trees using Python"""
+"""define a function that can calculate the height of trees"""
     radians = degrees * pi / 180
     height = distance * tan(radians)
 
     return height
+
+ 
 
 TreeHeight.m = TreeHeight(MyTree[,3], MyTree[,2])
 MyTree[TreeHeight.m] = TreeHeight.m
