@@ -33,30 +33,90 @@ chaos_games <- function{
     X = new_point
     i = i + 1
   }
-}
 
+}
+plot(0:4, 0:4, type = "n")
 #23 turtle
 turtle <- function(start_position, direction, length){
-  start_point = c(start_position[1], start_position[2])
-  end_point = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
-  lines(x = start_point, y = end_point)
+  end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
   
+  x = c(start_position[1], end_position[1])
+  y = c(start_position[2], end_position[2])
+  lines(x, y, type = "l")
+  return(end_position)
 } 
 
 #24 elbow
-
-elbow <- function(start_position,direction, length){
+elbow <- function(start_position, direction, length){
   turtle(start_position,direction, length)
-  start_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
-  turtle(start_position, direction - pi/4, 0.95*length)
-} # point does not present at the right place
+  end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
+  par(new = T)
+  turtle(end_position, direction - pi/4, 0.95*length)
+} 
 
 # 25
-
-spiral <- function(start_position,direction, length){
+spiral <- function(start_position, direction, length){
   turtle(start_position,direction, length)
-  start_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
-  turtle(start_position, direction - pi/4, 0.95*length)
+  end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
+  spiral(end_position, direction - pi/4, length)
 }
 
+# 26 
+spiral_2 <- function(start_position,direction,length){
+  if (length > 0.001) {
+    turtle(start_position, direction, length)
+    end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
+    spiral_2(end_position, direction - pi/4, 0.95*length)
+  } 
+}
 
+# 27
+tree <- function(start_position,direction,length){
+  if (length > 0.001) {
+    turtle(start_position, direction, length)
+    end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
+    tree(end_position, direction - pi/4, 0.65*length)
+    tree(end_position, direction + pi/4, 0.65*length)
+  } 
+}
+
+#28
+fern <- function(start_position,direction,length){
+  if (length > 0.1) {
+    turtle(start_position, direction, length)
+    end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
+    fern(end_position, direction + pi/4, 0.38*length)
+    fern(end_position, direction , 0.87*length)
+  }
+}
+
+#29
+fern_2 <- function(start_position,direction,length,dir){
+  if (length > 0.001) {
+    if (dir == 1){
+    turtle(start_position, direction, length)
+    end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
+    fern_2(end_position, direction + pi/4, 0.38*length)
+    fern_2(end_position, direction , 0.87*length)
+    }else{
+    turtle(start_position, direction, length)
+    end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
+    fern_2(end_position, direction - pi/4, 0.38*length)
+    fern_2(end_position, direction , 0.87*length)
+    }
+  }
+}
+
+fern_2 = function(start_position, direction, length, dir){
+  if (length > 0.01){
+    if (dir == -1){
+      a = turtle(start_position, direction, length)
+      fern_2(a, (direction-pi/4), (0.38*(length))
+      fern_2(a, direction , (0.87*(length)))
+    }else{
+      a = turtle(start_position, direction, length)
+      fern_2(a, (direction+pi/4), (0.38*(length)))
+      fern_2(a, direction , (0.87*(length)))
+    }
+  }
+} 

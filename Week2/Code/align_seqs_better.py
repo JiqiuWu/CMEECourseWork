@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""align seqs script and sequences are from a csv file"""
+"""align seqs script and sequences are from a csv file and save all the best results"""
 
 __author__ = 'Jiqiu Wu (j.wu18@imperial.ac.uk)'
 __version__ = '0.0.1'
@@ -11,7 +11,7 @@ import pickle
 
 line = []
 f = open("../Data/align_seqs.csv","r")
-for lines in f.readlines():
+for lines in f:
     line.append(lines.strip('\n'))
 f.close() #open the csv file and read
 
@@ -65,6 +65,6 @@ for i in range(l1): # Note that you just take the last alignment with the highes
         my_best_align = "." * i + s2 # think about what this is doing!
         my_best_score = z 
 
-aligned_seqs = pickle.load("../Result/aligned_seqs.txt","w")
+aligned_seqs = pickle.load("../Result/aligned_seqs.txt")
 aligned_seqs.pickle.dump(my_best_align + "\n" + s1 + "\n"+"Best_score: "+str(my_best_score))
 aligned_seqs.close()

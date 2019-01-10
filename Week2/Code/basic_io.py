@@ -48,7 +48,9 @@ my_dictionary = {"a key": 10, "another key":11}
 
 
 f = open('../Sandbox/tessp.p','wb')## note the b: accept binaryfiles
-pickle.dump(my_dictionary, f) # save the content of my_dictionary to tessp.p, which can't be read by human and open by editor
+pickle.dump(my_dictionary, f) 
+# save the content of my_dictionary to tessp.p, 
+# which can't be read by human and open by editor
 f.close()
 
 ## Load the data again

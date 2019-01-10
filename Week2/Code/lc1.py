@@ -19,6 +19,7 @@ birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
 latin_names = [raw[0] for raw in birds ]
 common_names = [raw[1] for raw in birds]
 mean_body_masses = [raw[2] for raw in birds]
+#use the list comprehension to add values
 print(latin_names)
 print(common_names)
 print(mean_body_masses)

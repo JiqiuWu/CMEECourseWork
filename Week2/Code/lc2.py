@@ -42,10 +42,10 @@ greater_100mm = []
 for rainfalls in rainfall:
     if rainfalls[1] > 100:
         greater_100mm.append(rainfalls)
-        print(greater_100mm)
+print(greater_100mm)
 
 less_50mm = []
 for rainfalls in rainfall:
     if rainfalls[1] <50:
         less_50mm.append(rainfalls)
-        print(less_50mm)
+print(less_50mm)

@@ -9,20 +9,26 @@ import sys
 
 lines1 = ""
 lines2 = "" #generate two empty sequences
-f1 = open(sys.argv[1],"r")
-f2 = open(sys.argv[2],"r")
 
-if len(list(sys.argv)) == 0:
-    f1 = ATCGCCGGATTACGGG
-    f2 = CAATTCGGAT
+
+if len(sys.argv) == 1:
+    f1 = open("../Data/407228326.fasta")
+    f2 = open("../Data/407228412.fasta")
+else:
+    f1 = open(sys.argv[1],"r")
+    f2 = open(sys.argv[2],"r")
+
+# to meet that it should still run if no inputs 
+#were given, using two fasta sequences from the data directory as defaults
+
 
 next(f1) #ignore the first line
-for line in f1.readlines():
+for line in f1:
     lines1 += line
 f1.close()
 
 next(f2) #ignore the first line
-for line in f2.readlines():
+for line in f2:
     lines2 += line
 f2.close()
 

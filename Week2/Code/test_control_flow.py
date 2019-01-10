@@ -35,6 +35,7 @@ def even_or_odd(x=0):
 ####### I SUPPRESSED THIS BLOCK: WHY? #######
 
 #I guess this is a test instead of a real conducting script, so this section is not necessary
+#I will ask you by sending you emails,hahahaha
 
 # def main(argv): 
 #     print(even_or_odd(22))

@@ -14,6 +14,8 @@ def even_or_odd(x=0): # if not specified, x should take value 0.
     if x % 2 == 0: #The conditional if
         return "%d is Even!" % x
     return "%d is Odd!" % x
+    #This is for formatting the output of a particular operation/method 
+    #nicely in a string that is printed to screen or a file
 
 def largest_divisor_five(x=120):
     """Find which is the largest divisor of x among 2,3,4,5."""
@@ -59,7 +61,7 @@ def main(argv):
     print(is_prime(60))
     print(is_prime(59))
     print(find_all_primes(100))
-
+#like default input???
     return 0
 
 if (__name__ == "__main__"):
