@@ -16,7 +16,7 @@
 #[1]https://en.wikipedia.org/wiki/Fractal_dimension
 
 #22 The chaos game
-chaos_games <- function{
+chaos_games <- function(){
   A = c(0,0)
   B = c(3,4)
   C = c(4,1)
@@ -33,8 +33,7 @@ chaos_games <- function{
     X = new_point
     i = i + 1
   }
-
-}
+  }
 plot(0:4, 0:4, type = "n")
 #23 turtle
 turtle <- function(start_position, direction, length){
@@ -82,7 +81,7 @@ tree <- function(start_position,direction,length){
 
 #28
 fern <- function(start_position,direction,length){
-  if (length > 0.1) {
+  if (length > 0.001) {
     turtle(start_position, direction, length)
     end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
     fern(end_position, direction + pi/4, 0.38*length)
@@ -91,32 +90,18 @@ fern <- function(start_position,direction,length){
 }
 
 #29
-fern_2 <- function(start_position,direction,length,dir){
-  if (length > 0.001) {
-    if (dir == 1){
+plot(0:4, 0:4, type = "n")
+fern_2 <- function(start_position,direction,length,dir =-1 ){
+  dir <- dir*(-1)
+  if (length > 0.005) {
+    #a = Inf
+    #for (i in 1:a){
     turtle(start_position, direction, length)
     end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
-    fern_2(end_position, direction + pi/4, 0.38*length)
-    fern_2(end_position, direction , 0.87*length)
-    }else{
-    turtle(start_position, direction, length)
-    end_position = c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
-    fern_2(end_position, direction - pi/4, 0.38*length)
-    fern_2(end_position, direction , 0.87*length)
-    }
+    fern_2(end_position, direction + (dir) * pi/4, 0.38*length,-dir)
+    fern_2(end_position, direction , 0.87*length,dir)
+    
+    #}
   }
 }
 
-fern_2 = function(start_position, direction, length, dir){
-  if (length > 0.01){
-    if (dir == -1){
-      a = turtle(start_position, direction, length)
-      fern_2(a, (direction-pi/4), (0.38*(length))
-      fern_2(a, direction , (0.87*(length)))
-    }else{
-      a = turtle(start_position, direction, length)
-      fern_2(a, (direction+pi/4), (0.38*(length)))
-      fern_2(a, direction , (0.87*(length)))
-    }
-  }
-} 

@@ -50,16 +50,27 @@ neutral_time_series <- function(initial, duration){
 }
 #7
 
-plot(x=1:201, y = neutral_time_series(initialise_max(100), 200), type = "p", xlab = "generations" , ylab = "speices_richness", main = "The exact plot of question8, happy!")
-
+question8 <-function(){
+  pdf(file="../Results/Figures/Question8.pdf")
+  
+  plot(x=1:201, y = neutral_time_series(initialise_max(100), 200), 
+       
+       type = "p", pch = 20, cex =0.5, col = "blue",
+       xlab = "Generations" , ylab = "Speices Richness", 
+       
+       main = "Neutral Model Simulation Over Generations")
+  
+  dev.off()
+}
 #8
 
 neutral_step_speciation <- function(community, v){
   x <- runif(1, min = 0, max =1)
 if (x < v){
-  middle_community = community + 1
-  dead = sample(community, size = 1, replace = F)
-  community[dead] = middle_community[length(middle_community)]
+  add_one = max(community) + 1
+  dead = choose_two(length(community))
+  die = dead[1]
+  community[die] = add_one
   return(community)
 } else{
   community = neutral_step(community)
@@ -86,11 +97,23 @@ neutral_time_series_speciation <- function(community,v,duration){
   return(richness)
 }
 #11
-question12 <- function(community,v,duration){
-p <- plot(x=1:201, y = neutral_time_series_speciation(initialise_max(100), 0.1, 200), type = "l", xlab = "generations" ,ylim =  range(1,100), col = "blue", ylab = "speices_richness", main = "The exact plot of question12, happy!")
-par(new = T)
-p <- plot(x=1:201, y = neutral_time_series_speciation(initialise_min(100), 0.1, 200), type = "l", ylim =range(1,100), col = "green")
-}
+
+
+question12 <- function(){
+    pdf(file="../Results/Figures/Question12.pdf")
+  
+    y1 = neutral_time_series_speciation(initialise_max(100),0.1,duration=200)
+    y2 = neutral_time_series_speciation(initialise_min(100),0.1,duration=200)
+    x = c(1:length(y1))
+  
+    plot(x, y1, xlab="Generations", ylab = "Species Richness", cex = 0.5,
+    main="Netural Model Simulation With Speciation Over Generations", col="green", pch=20, ylim =c(1,100))
+    points(x, y2, col="blue", pch=20, cex = 0.5)
+    legend('topright',c('initialise max','initialise min'),
+           col=c('green','blue'), pch=c(20,20), bty="n")
+    dev.off()
+  }
+
 
 #12
 
@@ -106,6 +129,7 @@ result <- tabulate(as.integer(floor(log2(community))) + 1)
 return(result)
 }
 #14
+
 sum_vect <- function(x,y){
 if (length(x) > length(y)){
   a = x
@@ -126,30 +150,166 @@ if(length(x) != length(y)){
 
 
 
-question16 <- function(){
-  n <- octaves(neutral_time_series_speciation(initialise_max(100), 0.1, 200))
-  p <- octaves(neutral_time_series_speciation(initialise_min(100), 0.1, 200))
-  q <- neutral_time_series_speciation(initialise_max(100), 0.1, 2000)
-  r <- neutral_time_series_speciation(initialise_min(100), 0.1, 2000) 
+question16_200 <- function(){
+  #n <- octaves(neutral_time_series_speciation(initialise_max(100), 0.1, 200))
+  #p <- octaves(neutral_time_series_speciation(initialise_min(100), 0.1, 200))
+  #q <- neutral_time_series_speciation(initialise_max(100), 0.1, 2000)
+  # r <- neutral_time_series_speciation(initialise_min(100), 0.1, 2000) 
+  duration = 200
+  lst = list()
+  summa = c()
+  
+  community = initialise_max(100)
+  community_list = list()
+  for (i in 1:duration){
+    community = neutral_generation_speciation(community,0.1)
+    community_list = c(community_list, list(community))
+    
+    if (i %% 20 == 0){
+      
+      summa = sum_vect(summa, octaves(species_abundance(community_list[i])))
+      
+      
+    }
+  }
+  
+  avg = unlist(summa)/10
+  
+  
+  pdf(file="../Results/Figures/Question16_2000.pdf")
+  
+  barplot(avg, xlab = "The Abundance Range", ylab = "The Number Of Species",
+          main = "The Average Of The Species Abundance Distribution Over 200 generation",
+          names.arg = c(2^((1:length(avg))-1)), ylim = c(0,10))
+  dev.off()
+} 
 
-lst <- list()
-for (i in 1:2000){
+
+question16_2000 <- function(){
+  #n <- octaves(neutral_time_series_speciation(initialise_max(100), 0.1, 200))
+  #p <- octaves(neutral_time_series_speciation(initialise_min(100), 0.1, 200))
+  #q <- neutral_time_series_speciation(initialise_max(100), 0.1, 2000)
+  # r <- neutral_time_series_speciation(initialise_min(100), 0.1, 2000) 
+  duration = 2000
+  lst = list()
+  summa = c()
   
-if (i %% 20 == 0){
-  lst[[i]] = octaves(neutral_time_series_speciation(initialise_max(100),0.1,i))
- i = i + 1
-}
-  all_octaves = lst[-which(sapply(lst,is.null))] 
+  community = initialise_max(100)
+  community_list = list()
+  for (i in 1:duration){
+    community = neutral_generation_speciation(community,0.1)
+    community_list = c(community_list, list(community))
+    
+    if (i %% 20 == 0){
+      
+      summa = sum_vect(summa, octaves(species_abundance(community_list[i])))
+    }
+  }
   
-  summa = all_octaves[[1]]
-  for (i in 2:100){
-    summa = sum_vect(summa, all_octaves[[i]])
-    average = summa/100
-    barplot(average)
- # return(lst)
+  avg = unlist(summa)/100
+  
+  pdf(file="../Results/Figures/Question16_2000.pdf")
+  barplot(avg, xlab = "The Abundance Range", ylab = "The Number Of Species",
+          main = "The Average Of The Species Abundance Distribution Over 2000 generation",
+          names.arg = c(2^((1:length(avg))-1)), ylim = c(0,10))
+  dev.off()
 } 
+
+#17
+cluster_run <-function( species_rate, size,wall_time, interval_rich, interval_oct, burn_in_generations, output_file_name){
+  
+  tic = proc.time()
+  while(as.numeric(proc.time()-tic)[3] < (wall_time *60)){
+    
+    rich = list()
+    oct = list()
+    for (i in 1:burn_in_generations){
+      if (i %% interval_rich == 0){
+        rich = c(rich, species_richness(neutral_time_series_speciation(community = initialise_min(size), v = species_rate, i)))
+      }
+      if (i %% interval_oct == 0){
+        oct = c(oct, list(octaves(neutral_time_series_speciation(community = initialise_min(size), v = species_rate, i))))
+      }
+    }
+    
+  }
+  community_end = neutral_time_series_speciation(community = initialise_min(size), v = species_rate, duration = burn_in_generations)
+  
+  totaltime=as.numeric(proc.time()-tic)[3]
+  save(totaltime, oct, community_end, species_rate,size,wall_time,interval_rich,interval_oct,burn_in_generations, file =output_file_name)
 }
-} 
+
+#18
+#19
+
+#20
+all_oct_avg <- function(){
+  iter = 100
+  all_oct_avg = c()
+  for (i in 1:iter){
+    file = paste("my_test_file_", iter, ".rda")
+    load(file)
+    summa_oct = c()
+    for (j in 1:length(oct)){
+      summa_oct = sum_vect(summa_oct,oct[[j]])
+    }
+    oct_avg = summa_oct/length(oct)
+    all_oct_avg = c(all_oct_avg, oct_avg)
+  }
+  return(all_oct_avg)
+}
+
+question20 <- function(){
+  all_oct_avg_500 = c()
+  all_oct_avg_1000 = c()
+  all_oct_avg_2500 = c()
+  all_oct_avg_5000 = c()
+  
+  for (i in (1:length(all_oct_avg))){
+    if(i%%4==1){
+      all_oct_all_500 = sum_vect(all_oct_all_500,all_oct_avg[[i]])
+    }
+    else if(i%%4==2){
+      all_oct_all_1000 = sum_vect(all_oct_all_1000, all_oct_avg[[i]])
+    }
+    else if(i%%4==3){
+      all_oct_all_2500 = sum_vect(all_oct_all_2500t, all_oct_avgct[[i]])
+    }
+    else if(i%%4==0){
+      all_oct_all_5000 = sum_vect(all_oct_all_5000, all_oct_avg[[i]])
+    }
+  }
+  
+  all_oct_avg_500 = all_oct_all_500/25
+  all_oct_avg_1000 = all_oct_all_1000/25
+  all_oct_avg_2500 = all_oct_all_2500/25
+  all_oct_avg_5000 = all_oct_all_5000/25
+  
+  pdf(file="../Results/Figures/Question20.pdf")
+  par(mfrow = c(2,2),oma=c(0,0,2,0))
+  barplot(all_oct_avg_500, names.arg = c(2^((1:all_oct_avg_500))-1),
+          main = "Community size = 500",
+          xlab = "The Abundance Range", ylab = "The Number Of Species")
+  
+  barplot(all_oct_avg_1000, names.arg = c(2^((1:length(all_oct_avg_1000))-1)),
+          main = "Community size = 1000",
+          xlab = "The Abundance Range", ylab = "The Number Of Species")
+  
+  barplot(all_oct_avg_2500, names.arg = c(2^((1:length(all_oct_avg_2500))-1)),
+          main = "Community size = 2500",
+          xlab = "The Abundance Range", ylab = "The Number Of Species")
+  
+  barplot(all_oct_avg_5000, names.arg = c(2^((1:length(all_oct_avg_5000))-1)),
+          main = "Community size = 5000",
+          xlab = "The Abundance Range", ylab = "The Number Of Species")
+  
+  title("The Average Of The Species Abundance Distribution", outer=TRUE)
+  dev.off()
+}
+  
+  
+
+
 
 
 
