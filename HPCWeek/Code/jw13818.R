@@ -244,49 +244,46 @@ cluster_run <-function( species_rate, size,wall_time, interval_rich, interval_oc
 
 #20
 all_oct_avg <- function(){
-  iter = 100
+  a <- c(1:25)
+  b <- 4*a - 3
+  c <- 4*a - 2
+  iter <- sort(c(b,c))
+  
   all_oct_avg = c()
-  for (i in 1:iter){
-    file = paste("my_test_file_", iter, ".rda")
+  for (i in iter){
+    file = paste("my_test_file_",i,".rda",sep="")
     load(file)
-    summa_oct = c()
+    summa_oct = c(0)
+    
     for (j in 1:length(oct)){
       summa_oct = sum_vect(summa_oct,oct[[j]])
     }
     oct_avg = summa_oct/length(oct)
-    all_oct_avg = c(all_oct_avg, oct_avg)
+    all_oct_avg = c(all_oct_avg, list(oct_avg))
   }
   return(all_oct_avg)
 }
 
 question20 <- function(){
-  all_oct_avg_500 = c()
-  all_oct_avg_1000 = c()
-  all_oct_avg_2500 = c()
-  all_oct_avg_5000 = c()
-  
+  all_oct_all_500 = c()
+  all_oct_all_1000 = c()
+ 
   for (i in (1:length(all_oct_avg))){
-    if(i%%4==1){
-      all_oct_all_500 = sum_vect(all_oct_all_500,all_oct_avg[[i]])
+    if(i%%2==1){
+      all_oct_all_500 = sum_vect(all_oct_all_500,all_oct_avg[i])
     }
-    else if(i%%4==2){
-      all_oct_all_1000 = sum_vect(all_oct_all_1000, all_oct_avg[[i]])
+    else if(i%%2==0){
+      all_oct_all_1000 = sum_vect(all_oct_all_1000, all_oct_avg[i])
     }
-    else if(i%%4==3){
-      all_oct_all_2500 = sum_vect(all_oct_all_2500t, all_oct_avgct[[i]])
-    }
-    else if(i%%4==0){
-      all_oct_all_5000 = sum_vect(all_oct_all_5000, all_oct_avg[[i]])
-    }
+    
   }
   
   all_oct_avg_500 = all_oct_all_500/25
   all_oct_avg_1000 = all_oct_all_1000/25
-  all_oct_avg_2500 = all_oct_all_2500/25
-  all_oct_avg_5000 = all_oct_all_5000/25
+
   
   pdf(file="../Results/Figures/Question20.pdf")
-  par(mfrow = c(2,2),oma=c(0,0,2,0))
+  par(mfrow = c(1,2),oma=c(0,0,2,0))
   barplot(all_oct_avg_500, names.arg = c(2^((1:all_oct_avg_500))-1),
           main = "Community size = 500",
           xlab = "The Abundance Range", ylab = "The Number Of Species")
@@ -295,13 +292,7 @@ question20 <- function(){
           main = "Community size = 1000",
           xlab = "The Abundance Range", ylab = "The Number Of Species")
   
-  barplot(all_oct_avg_2500, names.arg = c(2^((1:length(all_oct_avg_2500))-1)),
-          main = "Community size = 2500",
-          xlab = "The Abundance Range", ylab = "The Number Of Species")
   
-  barplot(all_oct_avg_5000, names.arg = c(2^((1:length(all_oct_avg_5000))-1)),
-          main = "Community size = 5000",
-          xlab = "The Abundance Range", ylab = "The Number Of Species")
   
   title("The Average Of The Species Abundance Distribution", outer=TRUE)
   dev.off()

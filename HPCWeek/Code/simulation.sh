@@ -4,6 +4,6 @@
 module load anaconda3/personal
 echo "R is about to run"
 Rscript $HOME/HPC.R
-mv my_test_file* $HOME/projects
+mv my_test_file* $HOME/
 echo "R has finished running"
 # this is a comment at the end of the file
