@@ -12,8 +12,8 @@ Miniproject directory contains the works on model fitting.
 
 Textbooks includes the boos I read.
 
-## Code and Data Availability for thesis
-# Please see the MainProject file
+# Code and Data Availability for thesis
+## Please see the MainProject file
 
 Author
 Jiqiu Wu - j.wu18@imperial.ac.uk
