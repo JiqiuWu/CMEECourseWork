@@ -1,4 +1,6 @@
 **My CMEE 2018-19 CourseWork Repository**
+
+
 Do I like this better?
 Yes, but it took a long time. I think during the furthur understanding, I will love it more.
 
@@ -11,7 +13,7 @@ Miniproject directory contains the works on model fitting.
 Textbooks includes the boos I read.
 
 ## Code and Data Availability for thesis
-Please see the MainProject file
+# Please see the MainProject file
 
 Author
 Jiqiu Wu - j.wu18@imperial.ac.uk
